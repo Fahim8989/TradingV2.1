@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        text-align: center;
+      }
+
+      h1 {
+        color: rgb(216, 155, 24);
+      }
+
+      a {
+        color: lightblue;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* Centering the items */
+      .center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; /* Adjust as needed */
+      }
+
+      /* Styling the button */
+      button {
+        background-color: lightblue;
+        color: black;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: white;
+        color: lightblue;
+      }
+
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo a {
+        color: #fff;
+        background-color: inherit;
+        text-decoration: none;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 16px;
+      }
+
+      .user-section {
+        display: flex;
+        align-items: center;
+      }
+
+      .user-section a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 15px;
+        font-size: 16px;
+      }
+      span {
+        color: goldenrod;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <div class="logo">
+          <a href="/">Trading Forum</a>
+        </div>
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <!-- <a href="/contact">Contact Us</a> -->
+        </div>
+
+        <div class="user-section" id="welcomeMessage">
+          <!-- Content will be dynamically added here -->
+        </div>
+      </nav>
+    </header>
+<div>
+
+</div>
+    <h1 id="welcomeMessage">Welcome</h1>
+    <p><a href="/user/cryptorates"> List of coin prices &#128195;</a></p>
+    <p><a href="/search">Search Coins &#128269;</a></p>
+    <p><a href="/favorites">Favorites Coins &#11088;</a></p>
+    <p><a href="/addcustomcoin">Add a Custom Coin &#10010;</a></p>
+    <p><a href="/weeklyprices">Check Weekly Prices &#128269;</a></p>
+    <p><a href="/chart">Chart &#128269;</a></p>
+    <p><a href="/chart/compare">Compare Charts &#128269;</a></p>
+    <p><a href="/addalert">Add Alert &#10010;</a></p>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("/user/dashboard/userinfo") // Assuming this is your endpoint for user details
+          .then((response) => response.json())
+          .then((data) => {
+            const user = data.user;
+            // Now you can use the user data to manipulate the DOM
+            const welcomeMessage = document.querySelector("#welcomeMessage");
+            if (user) {
+              welcomeMessage.innerHTML = `Welcome ${user.username}`;
+            }
+
+            const userSection = document.querySelector(".user-section");
+
+            if (user) {
+              userSection.innerHTML = `
+                            <div>Welcome <span>${user.username}</span></div>
+                            <a class="logout" href="/user/logout">Logout</a>
+                        `;
+            } else {
+              userSection.innerHTML = `
+                            <a href="/auth/login">Sign In</a>
+                            <a href="/auth/signup">Sign Up</a>
+                        `;
+            }
+          })
+          .catch((error) =>
+            console.error("Error fetching user details:", error)
+          );
+      });
+
+    </script>
+  </body>
+</html>

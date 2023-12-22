@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compare Charts</title>
+    <script
+      type="text/javascript"
+      src="https://s3.tradingview.com/tv.js"
+    ></script>
+    <style>
+        body {
+        background-color: black;
+        color: white;
+        text-align: center;
+      }
+
+      h1 {
+        color: rgb(216, 155, 24);
+      }
+
+      .compare {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .chart-div{
+        width: 100%;
+        margin: 10px;
+      }
+      .selection-options{
+        width: 100%;
+        margin-bottom: 20px ;
+      }
+
+      select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+/* Style the options within the dropdown */
+select option {
+    padding: 10px;
+}
+
+/* Style when the dropdown is open */
+select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+    </style>
+  </head>
+  <body><h1>Compare Charts</h1>
+    <section class="compare">
+      <div class="chart-div">
+        <div class="selection-options">
+        <label for="symbol1">Select Symbol for Chart 1:</label>
+        <select id="symbol1">
+          <option value="BINANCE:BTCUSD">BTC/USD</option>
+          <option value="BINANCE:ETHUSD">ETH/USD</option>
+          <option value="BINANCE:BNBUSD">BNB/USD</option>
+          <option value="BINANCE:ADAUSD">ADA/USD</option>
+          <option value="BINANCE:XRPUSD">XRP/USD</option>
+          <option value="BINANCE:DOTUSD">DOT/USD</option>
+          <option value="BINANCE:LTCUSD">LTC/USD</option>
+          <option value="BINANCE:BCHUSD">BCH/USD</option>
+          <option value="BINANCE:SOLUSD">SOL/USD</option>
+        </select>
+
+        <!-- Interval Selection for Chart 1 -->
+        <label for="interval1">Select Interval for Chart 1:</label>
+        <select id="interval1">
+          <option value="60">1h</option>
+
+          <option value="1">1min</option>
+          <option value="5">5min</option>
+          <option value="15">15min</option>
+          <option value="30">30min</option>
+          <option value="240">4h</option>
+          <option value="D">1 Day</option>
+          <option value="W">1 Week</option>
+        </select>
+
+       </div>
+        <div id="chart1-container"  style="height: 500px; width: 100%; float: left" ></div>
+      </div>
+
+      <div class="chart-div">
+        <div class="selection-options">
+        <!-- Symbol Selection for Chart 2 -->
+        <label for="symbol2">Select Symbol for Chart 2:</label>
+        <select id="symbol2">
+          <option value="BINANCE:ETHUSD">ETH/USD</option>
+          <option value="BINANCE:BTCUSD">BTC/USD</option>
+          <option value="BINANCE:BNBUSD">BNB/USD</option>
+          <option value="BINANCE:ADAUSD">ADA/USD</option>
+          <option value="BINANCE:XRPUSD">XRP/USD</option>
+          <option value="BINANCE:DOTUSD">DOT/USD</option>
+          <option value="BINANCE:LTCUSD">LTC/USD</option>
+          <option value="BINANCE:BCHUSD">BCH/USD</option>
+          <option value="BINANCE:SOLUSD">SOL/USD</option>
+        </select>
+
+        <!-- Interval Selection for Chart 2 -->
+        <label for="interval2">Select Interval for Chart 2:</label>
+        <select id="interval2">
+          <option value="60">1h</option>
+
+          <option value="1">1min</option>
+          <option value="5">5min</option>
+          <option value="15">15min</option>
+          <option value="30">30min</option>
+          <option value="240">4h</option>
+          <option value="D">1 Day</option>
+          <option value="W">1 Week</option>
+        </select>
+      </div>
+        <div
+          id="chart2-container"
+          style="height: 500px; width: 100%; float: left"
+        ></div>
+      </div>
+    </section>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        
+      function handleChart1() {
+        const symbolSelect1 = document.getElementById("symbol1");
+        const intervalSelect1 = document.getElementById("interval1");
+        try {
+          console.log(symbolSelect1.value);
+          const symbol1 = symbolSelect1.value;
+          const interval1 = intervalSelect1.value;
+          new TradingView.widget({
+            autosize: true,
+            symbol: symbol1,
+            interval: interval1,
+            timezone: "Etc/UTC",
+            theme: "dark",
+            style: "1",
+            locale: "en",
+            enable_publishing: false,
+            container_id: "chart1-container",
+
+            allow_symbol_change: false,
+            hide_top_toolbar: true,
+            hide_side_toolbar: true,
+          });
+        } catch (error) {
+          console.error("Something wrong in creating:", error);
+        }
+      }
+
+
+      function handleChart2() {
+        const symbolSelect2 = document.getElementById("symbol2");
+        const intervalSelect2 = document.getElementById("interval2");
+        try {
+          console.log(symbolSelect2.value);
+          const symbol2 = symbolSelect2.value;
+          const interval2 = intervalSelect2.value;
+          new TradingView.widget({
+            autosize: true,
+            symbol: symbol2,
+            interval: interval2,
+            timezone: "Etc/UTC",
+            theme: "dark",
+            style: "1",
+            locale: "en",
+            enable_publishing: false,
+            container_id: "chart2-container",
+
+            allow_symbol_change: false,
+            hide_top_toolbar: true,
+            hide_side_toolbar: true,
+          });
+        } catch (error) {
+          console.error("Something wrong in creating:", error);
+        }
+      }
+
+      
+      handleChart1();
+      handleChart2();
+      document.getElementById("symbol1").addEventListener("change", function () {handleChart1(); });
+      document.getElementById("interval1").addEventListener("change", function () {handleChart1(); });;
+
+      document.getElementById("symbol2").addEventListener("change", function () {handleChart2(); });
+      document.getElementById("interval2").addEventListener("change", function () {handleChart2(); });;
+
+    });
+    </script>
+  </body>
+</html>

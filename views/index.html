@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to Trading Pricer</title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+    <link rel="stylesheet" type="text/css" href="/header.css" />
+
+
+  </head>
+  <body id="home">
+    <header>
+      <nav>
+        <div class="logo">
+          <a href="/">Trading Forum</a>
+        </div>
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+        </div>
+
+        <div class="user-section" id="welcomeMessage">
+          <a href="/auth/login">Sign In</a>
+          <a href="/auth/signup">Sign Up</a>
+        </div>
+      </nav>
+    </header>
+    <section class="content">
+      <div class="container">
+        <h1><b><span> Trading Pricer</span></b></h1>
+        <p><b>
+          Welcome to Trading Price Forum, your go-to destination for staying
+          informed on the latest cryptocurrency prices and trends. Explore
+          real-time updates, engage in insightful discussions, and make informed
+          trading decisions with our comprehensive platform. Join our community
+          of crypto enthusiasts and elevate your trading experience today.
+        </b></p>
+        <a id="joinnow" href="/auth/signup">JOIN NOW!</a>
+      </div>
+    </section>
+  </body>
+</html>
+
+        <!---------------------------Footer------------------------------------------------------------------------------->
+        <footer class="sticky-footer">
+          <div class="footer-txt">
+              <h1>Trading Pricer</h1>
+              <p>The official website of Trading Pricer.</p>
+              <ul class="socials-footer">
+                  <li><a href="#top">Back to top</a></li>
+                  <li><a href="mailto: mahme006@campus.goldsmiths.ac.uk">E-Mail</a></li>
+              </ul>
+              <p>&copy; Trading Pricer 2023</p>
+          </div>
+      </footer>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('/user/dashboard/userinfo') // Assuming this is your endpoint for user details
+            .then(response => response.json())
+            .then(data => {
+                const user = data.user;
+                const userSection = document.querySelector('.user-section');
+                console.log(user)
+                if (user) {
+                    userSection.innerHTML = `
+                        <div>Welcome <span>${user.username}</span></div>
+                        <a class="logout" href="/user/logout">Logout</a>
+                    `;
+                } 
+            })
+            .catch(error => console.error('Error fetching user details:', error));
+    });
+</script>
+</body>
+</html>
